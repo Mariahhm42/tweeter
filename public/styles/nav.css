@@ -1,0 +1,19 @@
+/* Set the nav styles */
+nav {
+    height: 120px; /* Height of 120px */
+    width: 100vw; /* Full width of the viewport */
+    background-color: #4056A1; /* Default background color */
+    color: #FFFFFF; /* Default font color */
+    font-family: Arial, sans-serif; /* Default fallback font */
+    padding: 0 1.5em; /* Space on the left and right */
+    display: flex; /* Optional: Flex layout for content alignment */
+    align-items: center; /* Center content vertically */
+  }
+  
+  /* Style the <span> within the <nav> */
+  nav span {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
