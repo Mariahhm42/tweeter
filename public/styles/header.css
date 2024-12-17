@@ -1,0 +1,28 @@
+ /* Header styles */
+ header {
+    width: 100%; /* Full width of the parent container */
+    background-color: #fcbdff; /* Light gray background */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    padding: 20px 0; /* Top and bottom padding */
+    background-image: url('http://www.transparenttextures.com/patterns/cartographer.png'); /* Add your texture image here */
+    background-repeat: repeat; /* Repeat the image */
+  }
+  
+  /* Avatar image styles */
+  header img {
+    width: 150px; /* Adjust avatar size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make the image circular */
+    margin-bottom: 10px; /* Space between image and name */
+  }
+  
+  /* Name styles */
+  header h2 {
+    margin: 0; /* Remove default margin */
+    font-family: "Bungee", sans-serif;
+    font-size: 1.5em;
+    color: #333333; /* Dark gray for contrast */
+  }
