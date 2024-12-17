@@ -9,24 +9,17 @@ nav {
     display: flex;  
     align-items: center; /* Center content vertically */
     justify-content: space-between;
-   
-
   }
   
   /* Style the <span> within the <nav> */
-  .App {
+  .nav-title {
     font-family: "Bungee", sans-serif;
     font-weight: 400;
     font-style: normal;
   }
 
 .write-tweet {
-    height: 120px;
-    width: 100vw;
     box-sizing: border-box;
-    background-color: #4056A1;
-    color:#FFFFFF;
-    padding: 1.5em;
     display: flex;
     align-items: center;
     padding-left: 1.5em; /* 1.5em on the left */
