@@ -8,8 +8,9 @@
   }
   
   /* Style the form itself */
-  .new-tweet form {
+  .new-tweet form div {
     display: flex;
+    align-items: flex;
     flex-direction: column; /* Stack the elements vertically */
     gap: 1em; /* Add spacing between elements */
   }
@@ -54,7 +55,7 @@
   .new-tweet .counter {
     font-size: 1rem; /* Slightly smaller font */
     color: #666666; /* Neutral color */
-    text-align: justify; /* Align text to the right */
-
+    text-align: right; /* Align text to the right */
+    margin-left: auto;
   }
   
