@@ -42,7 +42,7 @@ body {
 main {
   width: 90%; /* 90% of the parent element's width */
   margin: 0 auto; /* Centers the container horizontally */
-  background-color: #f4f4f4; /* Matches the body's background color */
+  background-color: inherit; /* Matches the body's background color */
   padding: 20px; /* Adds space inside the container */
   box-sizing: border-box; /* Ensures padding doesn't affect width */
   border-radius: 8px; /*Adds slightly rounded corners */
