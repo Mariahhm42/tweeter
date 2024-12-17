@@ -42,7 +42,7 @@
     border: none; /* Remove border */
     border-radius: 4px; /* Rounded corners */
     padding: 0.5em 1em; /* Add padding inside */
-    cursor: pointer; /* Change cursor to pointer on hover */
+    cursor: pointer;
     transition: background-color 0.3s ease; /* Smooth hover effect */
   }
   
@@ -54,7 +54,7 @@
   /* Style the counter */
   .new-tweet .counter {
     font-size: 1rem; /* Slightly smaller font */
-    color: #666666; /* Neutral color */
+    color: #666666; 
     text-align: right; /* Align text to the right */
     margin-left: auto;
   }
