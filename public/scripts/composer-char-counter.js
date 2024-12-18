@@ -6,15 +6,15 @@ $(document).ready(function() {
     // 'this' refers to the textarea element
     const inputText = $(this).val(); // Get the current value of the textarea
     const remainingCharacters = 140 - inputText.length; // Calculate remaining characters
-    console.log(`Characters left: ${remainingCharacters}`);
-    // Update the counter output
-    const $counter = $(this).closest("form").find(".counter");
+      console.log(`Characters left: ${remainingCharacters}`);
+    
+    const $counter = $(this).closest("form").find(".counter"); // Update the counter output
     $counter.text(remainingCharacters);
-    // Add or remove red styling when the count is negative
+    // Add or remove the 'counter-red' class based on character count
     if (remainingCharacters < 0) {
-      $counter.css("color", "red");
+      $counter.addClass("counter-red");
     } else {
-      $counter.css("color", "black");
+      $counter.removeClass("counter-red");
     }
-  });
+});
 });

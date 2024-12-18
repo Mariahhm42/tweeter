@@ -58,6 +58,6 @@
     text-align: right; /* Align text to the right */
     margin-left: auto;
   }
-  .new-tweet .counter.over-limit {
+  .new-tweet .counter-red {
     color: red; /* Color when character limit is exceeded */
   }
