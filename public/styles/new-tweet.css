@@ -50,7 +50,6 @@
   .new-tweet button:hover {
     background-color: #324482; /* Slightly darker shade */
   }
-  
   /* Style the counter */
   .new-tweet .counter {
     font-size: 1rem; /* Slightly smaller font */

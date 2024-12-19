@@ -3,36 +3,11 @@
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
-// Fake data taken from initial-tweets.json
-const data = [
-    {
-      "user": {
-        "name": "Newton",
-        "avatars": "https://i.imgur.com/73hZDYK.png",
-        "handle": "@SirIsaac"
-      },
-      "content": {
-        "text": "If I have seen further it is by standing on the shoulders of giants"
-      },
-      "created_at": 1461116232227
-    },
-    {
-      "user": {
-        "name": "Descartes",
-        "avatars": "https://i.imgur.com/nlhLi3I.png",
-        "handle": "@rd"
-      },
-      "content": {
-        "text": "Je pense , donc je suis"
-      },
-      "created_at": 1461113959088
-    }
-  ];
-  
+
+$(document).ready(function () {
   // Function to create a single tweet element
-  const createTweetElement = function(tweet) {
-    // Use template literals to construct the tweet's HTML structure
-    const timeAgo = timeSince(tweet.created_at); // Custom function to convert timestamp to a readable format
+  const createTweetElement = function (tweet) {
+    const timeAgo = timeSince(tweet.created_at); // Assume a timeSince function is defined
     const $tweet = $(`
       <article class="tweet">
         <header>
@@ -57,47 +32,70 @@ const data = [
     `);
     return $tweet;
   };
-  const renderTweets = function(tweets) {
+
+  // Function to render tweets
+  const renderTweets = function (tweets) {
     const $tweetsContainer = $("#tweets-container");
-    // Empty container before appending new tweets
-    $tweetsContainer.empty();
-    // Loop through each tweet and prepend to the container
+    $tweetsContainer.empty(); // Clear existing tweets
     for (const tweet of tweets) {
       const $tweetElement = createTweetElement(tweet);
-      $tweetsContainer.prepend($tweetElement); // Newest tweets first
+      $tweetsContainer.prepend($tweetElement); // Prepend new tweets
     }
   };
-  // Function to escape text for security (e.g., to prevent XSS attacks)
-  const escape = function(text) {
-    const div = document.createElement('div');
+
+  // Function to load tweets via AJAX
+  const loadTweets = function () {
+    $.ajax({
+      type: "GET",
+      url: "/tweets",
+      success: function (tweets) {
+        renderTweets(tweets);
+      },
+      error: function (err) {
+        console.error("Error loading tweets:", err);
+      },
+    });
+  };
+
+  // Function to escape text for security
+  const escape = function (text) {
+    const div = document.createElement("div");
     div.appendChild(document.createTextNode(text));
     return div.innerHTML;
   };
-  
-//   // Helper function to convert timestamps to "time ago" format
-//   const timeSince = function(timestamp) {
-//     const now = Date.now();
-//     const seconds = Math.floor((now - timestamp) / 1000);
-  
-//     const intervals = [
-//       { label: 'year', seconds: 31536000 },
-//       { label: 'month', seconds: 2592000 },
-//       { label: 'week', seconds: 604800 },
-//       { label: 'day', seconds: 86400 },
-//       { label: 'hour', seconds: 3600 },
-//       { label: 'minute', seconds: 60 },
-//       { label: 'second', seconds: 1 }
-//     ];
-  
-//     for (const interval of intervals) {
-//       const count = Math.floor(seconds / interval.seconds);
-//       if (count > 0) {
-//         return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
-//       }
-//     }
-//     return 'just now';
-//   };
-  
-  // Render tweets using the fake data
-  renderTweets(data);
-  
+
+  // Event listener for form submission
+  $("#new-tweet-form").on("submit", function (event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const serializedData = $(this).serialize(); // Serialize form data
+    console.log("Serialized data:", serializedData);
+
+    const tweetText = $("#tweet-text").val().trim(); // Get the input text
+    if (!tweetText) {
+      alert("Your tweet cannot be empty!");
+      return;
+    } else if (tweetText.length > 140) {
+      alert("Your tweet exceeds the 140 character limit!");
+      return;
+    }
+
+    // AJAX POST request to submit the tweet
+    $.ajax({
+      type: "POST",
+      url: "/tweets",
+      data: serializedData,
+      success: function () {
+        console.log("Tweet successfully posted!");
+        $("#tweet-text").val(""); // Clear input field
+        loadTweets(); // Reload tweets
+      },
+      error: function (err) {
+        console.error("Error posting tweet:", err);
+      },
+    });
+  });
+
+  // Load tweets on page load
+  loadTweets();
+});
