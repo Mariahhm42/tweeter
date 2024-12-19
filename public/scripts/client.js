@@ -57,19 +57,16 @@ const data = [
     `);
     return $tweet;
   };
-  
-  // Function to render multiple tweets
   const renderTweets = function(tweets) {
-    // Empty the container before rendering to avoid duplication
-    $('#tweets-container').empty();
-  
-    // Loop through each tweet object, generate its DOM element, and append to container
+    const $tweetsContainer = $("#tweets-container");
+    // Empty container before appending new tweets
+    $tweetsContainer.empty();
+    // Loop through each tweet and prepend to the container
     for (const tweet of tweets) {
       const $tweetElement = createTweetElement(tweet);
-      $('#tweets-container').append($tweetElement);
+      $tweetsContainer.prepend($tweetElement); // Newest tweets first
     }
   };
-  
   // Function to escape text for security (e.g., to prevent XSS attacks)
   const escape = function(text) {
     const div = document.createElement('div');
@@ -77,29 +74,29 @@ const data = [
     return div.innerHTML;
   };
   
-  // Helper function to convert timestamps to "time ago" format
-  const timeSince = function(timestamp) {
-    const now = Date.now();
-    const seconds = Math.floor((now - timestamp) / 1000);
+//   // Helper function to convert timestamps to "time ago" format
+//   const timeSince = function(timestamp) {
+//     const now = Date.now();
+//     const seconds = Math.floor((now - timestamp) / 1000);
   
-    const intervals = [
-      { label: 'year', seconds: 31536000 },
-      { label: 'month', seconds: 2592000 },
-      { label: 'week', seconds: 604800 },
-      { label: 'day', seconds: 86400 },
-      { label: 'hour', seconds: 3600 },
-      { label: 'minute', seconds: 60 },
-      { label: 'second', seconds: 1 }
-    ];
+//     const intervals = [
+//       { label: 'year', seconds: 31536000 },
+//       { label: 'month', seconds: 2592000 },
+//       { label: 'week', seconds: 604800 },
+//       { label: 'day', seconds: 86400 },
+//       { label: 'hour', seconds: 3600 },
+//       { label: 'minute', seconds: 60 },
+//       { label: 'second', seconds: 1 }
+//     ];
   
-    for (const interval of intervals) {
-      const count = Math.floor(seconds / interval.seconds);
-      if (count > 0) {
-        return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
-      }
-    }
-    return 'just now';
-  };
+//     for (const interval of intervals) {
+//       const count = Math.floor(seconds / interval.seconds);
+//       if (count > 0) {
+//         return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
+//       }
+//     }
+//     return 'just now';
+//   };
   
   // Render tweets using the fake data
   renderTweets(data);
