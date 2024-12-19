@@ -43,6 +43,13 @@ $(document).ready(function () {
     }
   };
 
+   // Function to escape potentially unsafe text for security (e.g., prevent XSS)
+   const escape = function (text) {
+    const div = document.createElement("div");
+    div.appendChild(document.createTextNode(text));
+    return div.innerHTML;
+  };
+
   // Function to load tweets via AJAX
   const loadTweets = function () {
     $.ajax({
@@ -56,46 +63,38 @@ $(document).ready(function () {
       },
     });
   };
-  // Event listener for form submission
+  // Form submission event handler
   $("#new-tweet-form").on("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
 
-    const tweetText = $("#tweet-text").val().trim(); // Get the input text
+    const tweetText = $("#tweet-text").val().trim();
 
     // Validation
     if (!tweetText) {
-      alert("Error: Your tweet cannot be empty!");
-      return; // Do not proceed with submission
-    } else if (tweetText.length > 140) {
-      alert("Error: Your tweet exceeds the 140-character limit!");
-      return; // Do not proceed with submission
+      alert("Your tweet cannot be empty!");
+      return;
+    }
+    if (tweetText.length > 140) {
+      alert("Your tweet exceeds the maximum length of 140 characters!");
+      return;
     }
 
-    const serializedData = $(this).serialize(); // Serialize form data
-
-    // AJAX POST request to submit the tweet
+    // Send AJAX POST request
+    const formData = $(this).serialize(); // Serialize form data
     $.ajax({
-      type: "POST",
       url: "/tweets",
-      data: serializedData,
+      method: "POST",
+      data: formData,
       success: function () {
-        $("#tweet-text").val(""); // Clear input field
+        $("#tweet-text").val(""); // Clear the textarea
         loadTweets(); // Reload tweets
       },
       error: function (err) {
         console.error("Error posting tweet:", err);
-      },
+      }
     });
   });
 
-
-  // Load tweets on page load
+  // Initial load of tweets on page load
   loadTweets();
 });
-
-// Function to escape text for security
-const escape = function (text) {
-  const div = document.createElement("div");
-  div.appendChild(document.createTextNode(text));
-  return div.innerHTML;
-};
