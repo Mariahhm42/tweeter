@@ -1,5 +1,5 @@
 /* Regular Tweet Styling */
-#tweets-container {
+/* #tweets-container {
     border: 2px dashed red;
     padding: 20px;
   }
@@ -8,7 +8,7 @@
     text-align: center;
     color: gray;
     font-style: italic;
-  }  
+  }   */
 
 article.tweet {
     border: 2px solid #c0c0c0;

@@ -7,7 +7,7 @@
 $(document).ready(function () {
   // Function to create a single tweet element
   const createTweetElement = function (tweet) {
-    const timeAgo = timeSince(tweet.created_at); // Assume a timeSince function is defined
+    const timeAgo = timeago.format(tweet.created_at); // Use timeago.format to display time passed
     const $tweet = $(`
       <article class="tweet">
         <header>
@@ -57,21 +57,13 @@ $(document).ready(function () {
     });
   };
 
-  // Function to escape text for security
-  const escape = function (text) {
-    const div = document.createElement("div");
-    div.appendChild(document.createTextNode(text));
-    return div.innerHTML;
-  };
-
   // Event listener for form submission
   $("#new-tweet-form").on("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
 
     const serializedData = $(this).serialize(); // Serialize form data
-    console.log("Serialized data:", serializedData);
-
     const tweetText = $("#tweet-text").val().trim(); // Get the input text
+
     if (!tweetText) {
       alert("Your tweet cannot be empty!");
       return;
@@ -86,7 +78,6 @@ $(document).ready(function () {
       url: "/tweets",
       data: serializedData,
       success: function () {
-        console.log("Tweet successfully posted!");
         $("#tweet-text").val(""); // Clear input field
         loadTweets(); // Reload tweets
       },
@@ -99,3 +90,10 @@ $(document).ready(function () {
   // Load tweets on page load
   loadTweets();
 });
+
+// Function to escape text for security
+const escape = function (text) {
+  const div = document.createElement("div");
+  div.appendChild(document.createTextNode(text));
+  return div.innerHTML;
+};
