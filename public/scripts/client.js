@@ -56,21 +56,22 @@ $(document).ready(function () {
       },
     });
   };
-
   // Event listener for form submission
   $("#new-tweet-form").on("submit", function (event) {
     event.preventDefault(); // Prevent default form submission
 
-    const serializedData = $(this).serialize(); // Serialize form data
     const tweetText = $("#tweet-text").val().trim(); // Get the input text
 
+    // Validation
     if (!tweetText) {
-      alert("Your tweet cannot be empty!");
-      return;
+      alert("Error: Your tweet cannot be empty!");
+      return; // Do not proceed with submission
     } else if (tweetText.length > 140) {
-      alert("Your tweet exceeds the 140 character limit!");
-      return;
+      alert("Error: Your tweet exceeds the 140-character limit!");
+      return; // Do not proceed with submission
     }
+
+    const serializedData = $(this).serialize(); // Serialize form data
 
     // AJAX POST request to submit the tweet
     $.ajax({
@@ -86,6 +87,7 @@ $(document).ready(function () {
       },
     });
   });
+
 
   // Load tweets on page load
   loadTweets();
