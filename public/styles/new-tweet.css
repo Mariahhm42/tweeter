@@ -60,3 +60,20 @@
   .new-tweet .counter-red {
     color: red; /* Color when character limit is exceeded */
   }
+
+  /* Error message styles */
+  #error-message {
+    display: none; /* Initially hidden */
+    color: white;
+    background-color: red;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  #error-message.hidden {
+    display: none; /* Ensure the 'hidden' class can hide it */
+  }
+  
+

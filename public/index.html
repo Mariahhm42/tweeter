@@ -53,6 +53,9 @@
       <!--New Tweet Section-->
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
+        <!-- Error message container -->
+        <div id="error-message" class="error-message"></div>
+
         <form action="/tweets/" method="POST">
           <label for="tweet-text">What are you humming about?</label>
           <textarea name="text" id="tweet-text" placeholder="Type your tweet here..."></textarea>
@@ -66,27 +69,8 @@
       <!-- Dynamic tweets container -->
       <section id="tweets-container">
         <!-- Tweets will be dynamically loaded here -->
-          <article class="tweet">
-            <header>
-              <div class="user-info">
-                <img class="avatar" src="images/jeffery-erhunse-BQMZ5ligqps-unsplash.jpg" alt="User Avatar for Gift">
-                <h4>Gift</h4>
-                <span class="handle">@WineLover</span>
-              </div>
-            </header>
-            <p class="tweet-content">
-              At the end of the day, the day will end. Choose happiness always 🥰🍷
-            </p>
-            <footer>
-              <span class="timestamp">11 days ago</span>
-              <div class="tweet-icons">
-                <i class="fa-solid fa-flag"></i>
-                <i class="fa-solid fa-retweet"></i>
-                <i class="fa-solid fa-heart"></i>
-              </div>
-            </footer>
-          </article>  
       </section>
+
     </main>
   </body>
 </html>
