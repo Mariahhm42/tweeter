@@ -1,21 +1,21 @@
 $(document).ready(function () {
   // Function to escape potentially unsafe characters
-  const escape = function (text) {
-    const div = document.createElement("div");
-    div.appendChild(document.createTextNode(text));
+  const escape = function (str) {
+    let div = document.createElement("div");
+    div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
 
   // Function to create a tweet element
   const createTweetElement = function (tweet) {
     const timeAgo = timeago.format(tweet.created_at);
-    return `
+    const safeHTML = `
       <article class="tweet">
         <header>
           <div class="user-info">
-            <img class="avatar" src="${tweet.user.avatars}" alt="User Avatar">
-            <h4>${tweet.user.name}</h4>
-            <span class="handle">${tweet.user.handle}</span>
+            <img class="avatar" src="${escape(tweet.user.avatars)}" alt="User Avatar">
+            <h4>${escape(tweet.user.name)}</h4>
+            <span class="handle">${escape(tweet.user.handle)}</span>
           </div>
         </header>
         <p class="tweet-content">${escape(tweet.content.text)}</p>
@@ -29,6 +29,7 @@ $(document).ready(function () {
         </footer>
       </article>
     `;
+    return safeHTML;
   };
 
   // Function to render a single new tweet to the DOM
@@ -63,10 +64,10 @@ $(document).ready(function () {
     });
   };
 
-  // Function to display an error message
+  // Function to display the error message
   const displayError = function (message) {
     const $errorMessage = $("#error-message");
-    $errorMessage.text(message).slideDown();
+    $errorMessage.html(`<p>${escape(message)}</p>`).slideDown();
   };
 
   // Function to hide the error message
@@ -76,63 +77,42 @@ $(document).ready(function () {
   };
 
   // Form submission handler
-$("#new-tweet-form").on("submit", function (event) {
-  event.preventDefault();
+  $("#new-tweet-form").on("submit", function (event) {
+    event.preventDefault();
 
-  const $errorMessage = $("#error-message");
-  const tweetText = $("#tweet-text").val().trim();
+    const tweetText = $("#tweet-text").val().trim();
 
-  // Slide up the error message (if visible) before validation
-  $errorMessage.slideUp();
-
-  // Validation checks
-  if (!tweetText) {
-    $errorMessage.text("Tweet cannot be empty!").slideDown();
-    return;
-  }
-
-  if (tweetText.length > 140) {
-    $errorMessage.text("Tweet exceeds the maximum length of 140 characters!").slideDown();
-    return;
-  }
-
-  $("#tweet-text").on("input", function () {
-    const maxLength = 140;
-    const tweetLength = $(this).val().length;
-    const $counter = $(".counter");
-  
-    $counter.text(maxLength - tweetLength);
-    if (tweetLength > maxLength) {
-      $counter.addClass("counter-red");
-    } else {
-      $counter.removeClass("counter-red");
+    // Validation checks
+    if (!tweetText) {
+      displayError("Tweet cannot be empty!");
+      return;
     }
-  });
-  
 
-  // If validation passes, proceed with the form submission
-  const formData = $(this).serialize();
+    if (tweetText.length > 140) {
+      displayError("Tweet exceeds the maximum length of 140 characters!");
+      return;
+    }
 
-  $.ajax({
-    url: "/tweets",
-    method: "POST",
-    data: JSON.stringify({
-      name: "Amy Mansell", // Example user name
-      handle: "@AmyMansell",
-      avatars: "https://i.imgur.com/xyz.png", // Avatar URL
-      text: $("#tweet-text").val(), // The tweet text
-    }),
-    contentType: "application/json", // Important for JSON payloads
-    success: function (newTweet) {
-      renderNewTweet(newTweet); // Dynamically render the new tweet
-      $("#tweet-text").val(""); // Clear input
-      $(".counter").text(140); // Reset counter
-    },
-    error: function (err) {
-      console.error("Error posting tweet:", err);
-    },
+    // Slide up any previous error message
+    hideError();
+
+    const formData = $(this).serialize();
+
+    $.ajax({
+      url: "/tweets",
+      method: "POST",
+      data: formData,
+      success: function (newTweet) {
+        renderNewTweet(newTweet); // Render the new tweet directly
+        $("#tweet-text").val(""); // Clear the tweet input
+        $(".counter").text(140); // Reset the character counter
+      },
+      error: function (err) {
+        console.error("Error posting tweet:", err);
+      }
+    });
   });
-});
+
   // Initial load of tweets
   loadTweets();
 });
