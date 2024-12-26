@@ -10,6 +10,13 @@
     font-style: italic;
   }   */
 
+  #tweets-container {
+   
+    padding: 20px;
+    text-align: left;
+    padding: 2rem;
+  }
+
 article.tweet {
     border: 2px solid #c0c0c0;
     border-radius: 8px;
@@ -71,6 +78,10 @@ article.tweet footer .tweet-icons i {
     cursor: pointer;
     transition: color 0.3s ease-in-out;
   }
+
+  article.tweet footer .tweet-icons i fa-solid fa-flag {
+    color: aqua;
+  }
   
   /* Hover State */
 article.tweet:hover {
@@ -78,6 +89,6 @@ article.tweet:hover {
   }
   
 article.tweet:hover .tweet-icons i {
-    color: #ff6347; /* Change icons to tomato color */
+    color: #ff6347;
   }
   

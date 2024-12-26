@@ -7,6 +7,9 @@
     margin-bottom: 1.5em; /* Space below the section */
   }
   
+  .new-tweet h2 {
+    font-size: 20px;
+  }
   /* Style the form itself */
   .new-tweet form div {
     display: flex;

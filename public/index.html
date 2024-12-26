@@ -40,6 +40,13 @@
       </div>
     </nav>
     <header>
+      <!-- <style>
+      header{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      </style> -->
       <div>
         <img src="/images/profile-hex.png" alt="User Profile">
       </div>
@@ -52,12 +59,12 @@
     <main class="container">
       <!--New Tweet Section-->
       <section class="new-tweet">
-        <h2>Compose Tweet</h2>
+        <h2>What are you humming about?</h2>
         <!-- Error message container -->
         <div id="error-message" class="error-message"></div>
 
         <form action="/tweets/" method="POST">
-          <label for="tweet-text">What are you humming about?</label>
+          <label for="tweet-text"></label>
           <textarea name="text" id="tweet-text" placeholder="Type your tweet here..."></textarea>
           <div>
             <button type="submit">Tweet</button>
