@@ -64,19 +64,21 @@
     color: red; /* Color when character limit is exceeded */
   }
 
-  /* Error message styles */
-  #error-message {
-    display: none; /* Initially hidden */
-    color: white;
-    background-color: red;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  #error-message.hidden {
-    display: none; /* Ensure the 'hidden' class can hide it */
-  }
+ /* Error Message Styling */
+#error-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffe5e5; /* Light red background */
+  color: #d9534f; /* Red text for error */
+  font-size: 0.9rem;
+  border: 1px solid #d9534f;
+  display: none; /* Hidden by default */
+}
+
+.hidden {
+  display: none; /* Utility class to hide elements */
+}
+
   
 

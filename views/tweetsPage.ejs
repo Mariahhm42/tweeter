@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tweeter</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to Tweeter</h1>
+  </header>
+  <main>
+    <section id="tweets-container">
+      <% tweets.forEach((tweet) => { %>
+        <article class="tweet">
+          <header>
+            <div class="user-info">
+              <img class="avatar" src="<%= tweet.user.avatars %>" alt="User Avatar">
+              <h4><%= tweet.user.name %></h4>
+              <span class="handle"><%= tweet.user.handle %></span>
+            </div>
+          </header>
+          <p class="tweet-content"><%= tweet.content.text %></p>
+          <footer>
+            <span class="timestamp"><%= new Date(tweet.created_at).toLocaleString() %></span>
+          </footer>
+        </article>
+      <% }) %>
+    </section>
+  </main>
+</body>
+</html>

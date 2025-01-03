@@ -11,7 +11,6 @@
   }   */
 
   #tweets-container {
-   
     padding: 20px;
     text-align: left;
     padding: 2rem;
@@ -86,9 +85,18 @@ article.tweet footer .tweet-icons i {
   /* Hover State */
 article.tweet:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);  /* Slightly scale up the tweet */
   }
   
-article.tweet:hover .tweet-icons i {
-    color: #ff6347;
+article.tweet .tweet-icons .fa-heart:hover {
+    color: #f44336; /* Red color for heart on hover */
+  }
+  
+article.tweet .tweet-icons .fa-retweet:hover {
+    color: blue; /* blue color for retweet on hover */
+  }
+  
+article.tweet .tweet-icons .fa-flag:hover {
+    color: #ff9800; /* Orange color for flag on hover */
   }
   
