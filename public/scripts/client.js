@@ -75,41 +75,43 @@ $(document).ready(function () {
     $errorMessage.slideUp();
   };
 
-  // Form submission handler
   $("#new-tweet-form").on("submit", function (event) {
     event.preventDefault();
-
+    console.log ("submitting form")
     const tweetText = $("#tweet-text").val().trim();
-
-    // Validation checks
+  
+    // Validation: Empty or over the limit
     if (!tweetText) {
       displayError("Tweet cannot be empty!");
       return;
     }
-
+  
     if (tweetText.length > 140) {
-      displayError("Tweet exceeds the maximum length of 140 characters!");
+      displayError("You have exceeded the maximum tweet length of 140 characters!");
       return;
     }
-
-    // Slide up any previous error message
+  
+    // If no errors, hide the error message and proceed
     hideError();
-
-    const tweetData = { text: tweetText }; // Prepare JSON data
-
+  
+    // Serialize the form data 
+    const serializedData = $(this).serialize();
+    console.log("Serialized data:", serializedData); //should be the source of my data
+    
+    const tweetData = { text: tweetText };
+    console.log("tweetData", tweetData);
     $.ajax({
       url: "/tweets",
       method: "POST",
-      contentType: "application/json", // Indicate JSON data
-    data: JSON.stringify(tweetData), // Serialize as JSON
-    success: function (newTweet) {
-      renderNewTweet(newTweet); // Render the new tweet
-      $("#tweet-text").val(""); // Clear the tweet input
-      $(".counter").text(140); // Reset the character counter
-    },
-    error: function (err) {
-      console.error("Error posting tweet:", err.responseText);
-    }
+      data: serializedData, // Send serialized data
+      success: function (newTweet) {
+        renderNewTweet(newTweet);
+        $("#tweet-text").val(""); // Clear input
+        $(".counter").text(140); // Reset counter
+      },
+      error: function (err) {
+        console.error("Error posting tweet:", err.responseText);
+      },
     });
   });
 
