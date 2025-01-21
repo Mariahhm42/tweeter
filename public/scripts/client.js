@@ -5,7 +5,6 @@ $(document).ready(function () {
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   };
-
   // Function to create a tweet element
   const createTweetElement = function (tweet) {
     const timeAgo = timeago.format(tweet.created_at);
@@ -36,16 +35,16 @@ $(document).ready(function () {
   const renderNewTweet = function (tweet) {
     const $tweetsContainer = $("#tweets-container");
     const $newTweet = $(createTweetElement(tweet));
-    $tweetsContainer.prepend($newTweet);
+    $tweetsContainer.prepend($newTweet); // Add new tweet at the top
   };
 
   // Function to render all tweets
   const renderTweets = function (tweets) {
     const $tweetsContainer = $("#tweets-container");
-    $tweetsContainer.empty();
+    $tweetsContainer.empty(); // Clear existing tweets
     for (const tweet of tweets) {
       const $tweetElement = createTweetElement(tweet);
-      $tweetsContainer.prepend($tweetElement);
+      $tweetsContainer.prepend($tweetElement); // Append all tweets to the container
     }
   };
 
@@ -96,20 +95,21 @@ $(document).ready(function () {
     // Slide up any previous error message
     hideError();
 
-    const formData = $(this).serialize();
+    const tweetData = { text: tweetText }; // Prepare JSON data
 
     $.ajax({
       url: "/tweets",
       method: "POST",
-      data: formData,
-      success: function (newTweet) {
-        renderNewTweet(newTweet); // Render the new tweet directly
-        $("#tweet-text").val(""); // Clear the tweet input
-        $(".counter").text(140); // Reset the character counter
-      },
-      error: function (err) {
-        console.error("Error posting tweet:", err);
-      }
+      contentType: "application/json", // Indicate JSON data
+    data: JSON.stringify(tweetData), // Serialize as JSON
+    success: function (newTweet) {
+      renderNewTweet(newTweet); // Render the new tweet
+      $("#tweet-text").val(""); // Clear the tweet input
+      $(".counter").text(140); // Reset the character counter
+    },
+    error: function (err) {
+      console.error("Error posting tweet:", err.responseText);
+    }
     });
   });
 
