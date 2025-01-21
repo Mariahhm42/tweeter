@@ -4,6 +4,7 @@ const userHelper    = require("../lib/util/user-helper")
 
 const express       = require('express');
 const tweetsRoutes  = express.Router();
+const jquery = require("jquery");
 
 module.exports = function(DataHelpers) {
 
